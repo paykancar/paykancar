@@ -5,13 +5,12 @@ import tkinter.ttk as ttk
 def srch():
     file = open("names.txt", "r")
     top = tk.Toplevel()
-    top.geometry(f"{root.winfo_width()}x{root.winfo_height}")
+    top.geometry(f"{root.winfo_width()}x{root.winfo_height()}")
     text = tk.Text(top)
     text.grid(row=0, column=0)
     for l in file:
         if search.get() in l:
             text.insert(tk.INSERT, l)
-
 
 def callback(a ,b ,c):
     c = code.get()
@@ -25,12 +24,17 @@ def callback(a ,b ,c):
     elif len(c) > 10:
         code.set(c[:10])
 
-            
-
-
-
-
-
+def alphabet1(a, b, c):
+    if name.get().isalpha():
+        n1.config(bg="green")
+    else:
+        n1.config(bg="red")
+        
+def alphabet2(a, b, c):
+    if last.get().isalpha():
+        l1.config(bg="green")
+    else:
+        l1.config(bg="red")
 
 def register():
     reg.register(name.get() , last.get() , birth.get() , code.get())
@@ -43,16 +47,26 @@ tk.Label(root, text="Birthday").grid(row=2, column=0)
 tk.Label(root, text="ID code").grid(row=3, column=0)
 
 name = tk.StringVar()
+name.trace("w", alphabet1)
+
 n1 = tk.Entry(root, textvariable=name)
 n1.grid(row=0, column=1)
+
 last = tk.StringVar()
+last.trace("w", alphabet2)
+
 l1 = tk.Entry(root, textvariable=last)
 l1.grid(row=1, column=1)
+
 birth = tk.StringVar()
+birth.trace("w", date)
+
 b1 = tk.Entry(root, textvariable=birth)
 b1.grid(row=2, column=1)
+
 code = tk.StringVar()
 code.trace("w", callback)
+
 c1 = tk.Entry(root, textvariable=code)
 c1.grid(row=3, column=1)
 
