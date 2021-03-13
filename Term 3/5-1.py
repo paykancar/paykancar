@@ -1,6 +1,7 @@
 import tkinter as tk
 import reg
 import tkinter.ttk as ttk
+from tkcalendar import DateEntry
 
 def srch():
     file = open("names.txt", "r")
@@ -36,10 +37,24 @@ def alphabet2(a, b, c):
     else:
         l1.config(bg="red")
 
-def register():
-    reg.register(name.get() , last.get() , birth.get() , code.get())
+def register(a=None):
+    reg.register
+    (
+    name.get() ,
+    last.get() ,
+    birth.get() ,
+    code.get()
+    )
 
+    name.set("")
+    last.set("") 
+    code.set("")
+    n1.config(bg="white")
+    l1.config(bg="white")
+    c1.config(bg="white")
+    
 root = tk.Tk() 
+root.bind("<Return>", register)
 
 tk.Label(root, text="Name").grid(row=0, column=0)
 tk.Label(root, text="Last name").grid(row=1, column=0)
@@ -59,10 +74,9 @@ l1 = tk.Entry(root, textvariable=last)
 l1.grid(row=1, column=1)
 
 birth = tk.StringVar()
-birth.trace("w", date)
-
-b1 = tk.Entry(root, textvariable=birth)
-b1.grid(row=2, column=1)
+b1 = DateEntry(root, width=12, background="darkred", foreground="blue",
+ borderwidth=2, date_pattern="y-mm-dd")
+b1.grid(row=2, column=1, sticky="we")
 
 code = tk.StringVar()
 code.trace("w", callback)
